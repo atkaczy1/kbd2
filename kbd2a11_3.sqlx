@@ -1,0 +1,63 @@
+select
+    XMLElement("linia",
+        XMLAttributes(l.typ as "typ"),
+        XMLElement("numer", numer_linii),
+        XMLElement("przystanki",
+            (select
+                XMLAgg(
+                    XMLElement("przystanek", nazwa )
+                )
+            from PRZYSTANKI p, TRASY t, ODCINKI_PRZYSTANKOW o
+            where
+            t.numer_linii=l.numer_linii AND t.PRZYSTANEK1 = o.PRZYSTANEK1 AND o.przystanek1 = P.NR_PRZYSTANKU)
+        )
+    ).getClobVal()
+from linie l;
+
+select
+    XMLElement("linia",
+        XMLElement("numer", numer_linii),
+        XMLElement("przystanki",
+            (select
+                XMLAgg(
+                    XMLElement("przystanek", nazwa )
+                )
+            from PRZYSTANKI p, TRASY t, ODCINKI_PRZYSTANKOW o
+            where
+            t.numer_linii=l.numer_linii AND t.PRZYSTANEK1 = o.PRZYSTANEK1 AND o.przystanek1 = P.NR_PRZYSTANKU)
+        )
+    ).getClobVal()
+from linie l
+where l.typ = 'N';
+
+select
+    XMLElement("linia",
+        XMLElement("numer", numer_linii),
+        XMLElement("przystanki",
+            (select
+                XMLAgg(
+                    XMLElement("przystanek", nazwa )
+                )
+            from PRZYSTANKI p, TRASY t, ODCINKI_PRZYSTANKOW o
+            where
+            t.numer_linii=l.numer_linii AND t.PRZYSTANEK1 = o.PRZYSTANEK1 AND o.przystanek1 = P.NR_PRZYSTANKU)
+        )
+    ).getClobVal()
+from linie l
+where l.typ = 'E';
+
+select
+    XMLElement("linia",
+        XMLElement("numer", numer_linii),
+        XMLElement("przystanki",
+            (select
+                XMLAgg(
+                    XMLElement("przystanek", nazwa )
+                )
+            from PRZYSTANKI p, TRASY t, ODCINKI_PRZYSTANKOW o
+            where
+            t.numer_linii=l.numer_linii AND t.PRZYSTANEK1 = o.PRZYSTANEK1 AND o.przystanek1 = P.NR_PRZYSTANKU)
+        )
+    ).getClobVal()
+from linie l
+where l.typ = 'P';
